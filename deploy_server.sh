@@ -1,4 +1,9 @@
 #!/bin/bash
+
+echo "App health check"
+sleep 5
+docker-compose exec -T webapp python -c "import requests; requests.get('http://localhost:8000/health')" || exit 1
+
 echo "Clean up old reports" 
 rm -f unittesting.xml coverage.xml typing.xml
 
@@ -13,8 +18,3 @@ docker cp "$(docker-compose ps -q webapp)":/python/reports/coverage.xml coverage
 TOTAL=$((STATUS1))
 
 exit $TOTAL
-
-
-# echo "Docker down"
-# docker-compose -f docker-compose.yml -f docker-compose.pipeline.yml down
-
