@@ -1,5 +1,7 @@
 name: Satel-webapp-testing
 description: Tests python validation for a webapp 
 runs:
-  using: node16
-  main: dist/index.js
+  using: "composite"
+  steps:
+    - run: ${{ github.action_path }}/deploy_server.sh 
+      shell: bash
