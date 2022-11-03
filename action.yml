@@ -23,7 +23,7 @@ runs:
       shell: bash  
 
     - run: ${{ github.action_path }}/CodeTests.sh 
-      if:  ${{ inputs.validatecodeonce }} == None
+      if:  ${{ inputs.validatecodeonce }} == true
       shell: bash
 
     - run: ${{ github.action_path }}/DockerDown.sh.sh ${{ inputs.app-name }}
