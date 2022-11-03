@@ -1,5 +1,7 @@
 #!/bin/bash
+#At the moment this is for sb-pim only
 # APP_TYPE=$1 TODO, replace typing.xml with this 
+# TODO : remove hard coded container "pim_api" 
 
 echo "App health check"  # Check to see if the app container is running or not
 sleep 5
