@@ -20,5 +20,5 @@ on:
     runs-on: <host_name>
     steps:
     - name: Code tests
-        uses:  SatelCreative/satel-webapp-testing@feature/webapp-deployment-shell
+        uses:  SatelCreative/satel-local-docker-env@v1
 ```        
