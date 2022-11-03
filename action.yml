@@ -1,7 +1,31 @@
-name: Satel-webapp-testing
-description: Tests python validation for a webapp 
+name: Local-docker-environment
+description: Run docker services, test them and then remove them
+inputs:
+  app-name:
+    description: Name of the Webapp
+    required: false
+  registry: 
+    description: Provides current name of the registry
+    required: true   
+  clean-branch-name: 
+    description: Branch name that was pushed to registry
+    required: true  
+  validatecodeonce:
+    description: Runs typing, linting, formatting check & unit and integration testing
+    required: false
+    default: None
+
 runs:
   using: "composite"
   steps:
-    - run: ${{ github.action_path }}/deploy_server.sh 
+    - run: ${{ github.action_path }}/DockerUp.sh ${{ inputs.app-name }}
+            ${{ inputs.registry }} ${{ inputs.clean-branch-name }}
+      shell: bash  
+
+    - run: ${{ github.action_path }}/CodeTests.sh 
+      if:  ${{ inputs.validatecodeonce }} == None
       shell: bash
+
+    - run: ${{ github.action_path }}/DockerDown.sh.sh ${{ inputs.app-name }}
+            ${{ inputs.registry }} ${{ inputs.clean-branch-name }}
+      shell: bash  
