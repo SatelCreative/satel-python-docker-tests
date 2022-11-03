@@ -26,6 +26,6 @@ runs:
       if:  ${{ inputs.validatecodeonce }} == true
       shell: bash
 
-    - run: ${{ github.action_path }}/scripts/DockerDown.sh.sh ${{ inputs.app-name }}
+    - run: ${{ github.action_path }}/scripts/DockerDown.sh ${{ inputs.app-name }}
             ${{ inputs.registry }} ${{ inputs.clean-branch-name }}
       shell: bash  
