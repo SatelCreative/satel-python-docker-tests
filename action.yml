@@ -14,6 +14,10 @@ inputs:
     description: Runs typing, linting, formatting check & unit and integration testing
     required: false
     default: None
+  multiple-server:
+    description: Runs typing, linting, formatting check & unit and integration testing for webapps with multiple server
+    required: false
+    default: None  
 
 runs:
   using: "composite"
@@ -22,9 +26,17 @@ runs:
             ${{ inputs.registry }} ${{ inputs.clean-branch-name }}
       shell: bash  
 
-    - run: ${{ github.action_path }}/scripts/CodeTests.sh 
-      if:  ${{ inputs.validatecodeonce }} == true
-      shell: bash
+    - run: |
+        if [[ ${{ inputs.validatecodeonce }} != 'None' ]]; then
+            ${{ github.action_path }}/scripts/CodeTestsOnce.sh 
+        fi  
+      shell: bash  
+
+    - run: |
+        if [[ ${{ inputs.multiple-server }} != 'None' ]]; then
+            ${{ github.action_path }}/scripts/CodeTestsMultiple.sh 
+        fi  
+      shell: bash  
 
     - run: ${{ github.action_path }}/scripts/DockerDown.sh ${{ inputs.app-name }}
             ${{ inputs.registry }} ${{ inputs.clean-branch-name }}
