@@ -18,14 +18,14 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: ${{ github.action_path }}/DockerUp.sh ${{ inputs.app-name }}
+    - run: ${{ github.action_path }}/scripts/DockerUp.sh ${{ inputs.app-name }}
             ${{ inputs.registry }} ${{ inputs.clean-branch-name }}
       shell: bash  
 
-    - run: ${{ github.action_path }}/CodeTests.sh 
+    - run: ${{ github.action_path }}/scripts/CodeTests.sh 
       if:  ${{ inputs.validatecodeonce }} == true
       shell: bash
 
-    - run: ${{ github.action_path }}/DockerDown.sh.sh ${{ inputs.app-name }}
+    - run: ${{ github.action_path }}/scripts/DockerDown.sh.sh ${{ inputs.app-name }}
             ${{ inputs.registry }} ${{ inputs.clean-branch-name }}
       shell: bash  
