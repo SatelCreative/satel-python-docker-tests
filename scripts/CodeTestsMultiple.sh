@@ -3,7 +3,7 @@
 
 echo "App health check"  # Check to see if the app container is running or not
 sleep 5
-docker-compose exec -T webapp python -c "import requests; requests.get('http://localhost:8000/health')" || exit 1
+docker-compose exec -T pim_api python -c "import requests; requests.get('http://localhost:8000/health')" || exit 1
 
 echo "Clean up old reports" 
 rm -f unittesting.xml coverage.xml typing-server.xml typing-integrations.xml
