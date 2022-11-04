@@ -3,7 +3,7 @@ This centralized GitHub action runs tests on local docker services
 
 ## Usage 
 ```yml
-name: "Local docker environment"
+name: "Deploy webapp"
 on:
   pull_request:
     types:
@@ -22,11 +22,16 @@ on:
      - name: Local docker environment
         uses: SatelCreative/satel-local-docker-env@v1
         with:
-          app-name: st-pim     
+          app-name: <app-name> 
           registry: ${{ steps.registry-build-push.outputs.registry }}
           clean-branch-name: ${{ steps.registry-build-push.outputs.clean_branch_name }}
-          # below two are not required fields and depends on the webapp type
+         # Below two are optional fields and depends on the webapp type
           validatecodeonce: true 
           multiple-server: true   
 
 ```        
+- `host_name` is `self-hosted` or the name of server where the action runner is hosted, `cosmicray` for example
+- `app-name` can be `st-pim` or `sb-pim` for example and it's optional
+- `registry` & `clean-branch-name` parameter is set in a previous st
+- `validatecodeonce` & `multiple-server` are optional, for most webapp, if there is just one server pass `validatecodeonce` as true and skip `multiple-server`.
+   If the webapp has multiple server, for example `sb-pim, pass `multiple-server` as `true` and skip `validatecodeonce`
