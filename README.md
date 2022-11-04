@@ -33,5 +33,5 @@ on:
 - `host_name` is `self-hosted` or the name of server where the action runner is hosted, `cosmicray` for example
 - `app-name` can be `st-pim` or `sb-pim` for example and it's optional
 - `registry` & `clean-branch-name` parameter is set in a previous st
-- `validatecodeonce` & `multiple-server` are optional, for most webapp, if there is just one server pass `validatecodeonce` as true and skip `multiple-server`.
-   If the webapp has multiple server, for example `sb-pim, pass `multiple-server` as `true` and skip `validatecodeonce`
+- `validatecodeonce` & `multiple-server` are optional, for most webapps, if there is just one server pass `validatecodeonce` as true and skip `multiple-server`.
+   If the webapp has multiple server, for example `sb-pim`, pass `multiple-server` as `true` and skip `validatecodeonce`
