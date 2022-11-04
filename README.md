@@ -24,7 +24,7 @@ on:
         with:
           app-name: <app-name> 
           registry: ${{ steps.registry-build-push.outputs.registry }}
-          clean-branch-name: ${{ steps.registry-build-push.outputs.clean_branch_name }}
+          clean-branch-name: ${{ steps.registry-build-push.outputs.clean-branch-name }}
          # Below two are optional fields and depends on the webapp type
           validatecodeonce: true 
           multiple-server: true   
