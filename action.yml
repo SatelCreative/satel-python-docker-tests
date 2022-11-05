@@ -22,22 +22,26 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: ${{ github.action_path }}/scripts/DockerUp.sh ${{ inputs.app-name }}
+    - name: Docker Up
+      run: ${{ github.action_path }}/scripts/DockerUp.sh ${{ inputs.app-name }}
             ${{ inputs.registry }} ${{ inputs.clean-branch-name }}
       shell: bash  
 
-    - run: |
+    - name: Run single server tests
+      run: |
         if [[ ${{ inputs.validatecodeonce }} != 'None' ]]; then
             ${{ github.action_path }}/scripts/CodeTestsOnce.sh 
         fi  
       shell: bash  
 
-    - run: |
+    - name: Run multiple server tests
+      run: |
         if [[ ${{ inputs.multiple-server }} != 'None' ]]; then
             ${{ github.action_path }}/scripts/CodeTestsMultiple.sh 
         fi  
       shell: bash  
 
-    - run: ${{ github.action_path }}/scripts/DockerDown.sh ${{ inputs.app-name }}
+    - name: Docker Down
+      run: ${{ github.action_path }}/scripts/DockerDown.sh ${{ inputs.app-name }}
             ${{ inputs.registry }} ${{ inputs.clean-branch-name }}
       shell: bash  
