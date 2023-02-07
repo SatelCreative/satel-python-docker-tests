@@ -30,7 +30,7 @@ runs:
     - name: Run single server tests
       run: |
         if [[ ${{ inputs.validatecodeonce }} != 'None' ]]; then
-            ${{ github.action_path }}/scripts/CodeTestsOnce.sh ${{ inputs.app-name }} ${{ inputs.clean-branch-name }}
+            ${{ github.action_path }}/scripts/CodeTestsOnce.sh
         fi  
       shell: bash  
 
