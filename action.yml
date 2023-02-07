@@ -18,13 +18,17 @@ inputs:
     description: Runs typing, linting, formatting check & unit and integration testing for webapps with multiple server
     required: false
     default: None  
+  work-dir:
+    description: location of all the docker files 
+    required: true
+    default: None  
 
 runs:
   using: "composite"
   steps:
     - name: Docker Up
       run: ${{ github.action_path }}/scripts/DockerUp.sh ${{ inputs.app-name }}
-            ${{ inputs.registry }} ${{ inputs.clean-branch-name }}
+            ${{ inputs.registry }} ${{ inputs.clean-branch-name }} ${{ inputs.work-dir }}
       shell: bash  
 
     - name: Run single server tests
@@ -43,5 +47,5 @@ runs:
 
     - name: Docker Down
       run: ${{ github.action_path }}/scripts/DockerDown.sh ${{ inputs.app-name }}
-            ${{ inputs.registry }} ${{ inputs.clean-branch-name }}
+            ${{ inputs.registry }} ${{ inputs.clean-branch-name }} ${{ inputs.work-dir }}
       shell: bash  
