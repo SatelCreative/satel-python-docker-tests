@@ -1,10 +1,17 @@
 #!/bin/bash
 
+WORK_DIR=$1
+
+if [[ -n $WORK_DIR ]] 
+then
+    echo "WORK_DIR ${WORK_DIR}"
+    cd $WORK_DIR
+fi  
 
 echo "App health check"  # Check to see if the app container is running or not
 docker ps 
-sleep 10
-#docker-compose exec -T webapp python -c "import requests; requests.get('http://localhost:8000/health')" || exit 1
+sleep 5
+docker-compose exec -T webapp python -c "import requests; requests.get('http://localhost:8000/health')" || exit 1
 
 echo "Clean up old reports" 
 rm -f unittesting.xml coverage.xml typing.xml

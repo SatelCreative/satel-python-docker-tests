@@ -34,14 +34,14 @@ runs:
     - name: Run single server tests
       run: |
         if [[ ${{ inputs.validatecodeonce }} != 'None' ]]; then
-            ${{ github.action_path }}/scripts/CodeTestsOnce.sh
+            ${{ github.action_path }}/scripts/CodeTestsOnce.sh ${{ inputs.work-dir }}
         fi  
       shell: bash  
 
     - name: Run multiple server tests
       run: |
         if [[ ${{ inputs.multiple-server }} != 'None' ]]; then
-            ${{ github.action_path }}/scripts/CodeTestsMultiple.sh 
+            ${{ github.action_path }}/scripts/CodeTestsMultiple.sh ${{ inputs.work-dir }}
         fi  
       shell: bash  
 

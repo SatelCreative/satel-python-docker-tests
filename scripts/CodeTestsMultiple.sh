@@ -3,6 +3,14 @@
 # APP_TYPE=$1 TODO, replace typing.xml with this 
 # TODO : remove hard coded container "pim_api" 
 
+WORK_DIR=$1
+
+if [[ -n $WORK_DIR ]] 
+then
+    echo "WORK_DIR ${WORK_DIR}"
+    cd $WORK_DIR
+fi  
+
 echo "App health check"  # Check to see if the app container is running or not
 sleep 5
 docker-compose exec -T pim_api python -c "import requests; requests.get('http://localhost:8000/health')" || exit 1
