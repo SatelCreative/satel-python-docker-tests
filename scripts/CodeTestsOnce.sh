@@ -1,7 +1,5 @@
 #!/bin/bash
 
-WORK_DIR=$1
-
 if [[ -n $WORK_DIR ]] 
 then
     echo "WORK_DIR ${WORK_DIR}"

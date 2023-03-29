@@ -3,7 +3,6 @@
 # APP_TYPE=$1 TODO, replace typing.xml with this 
 # TODO : remove hard coded container "pim_api" 
 
-WORK_DIR=$1
 
 if [[ -n $WORK_DIR ]] 
 then
