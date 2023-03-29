@@ -20,7 +20,7 @@ inputs:
     default: None  
   work-dir:
     description: location of all the docker files 
-    required: true 
+    required: false
 
 runs:
   using: "composite"
