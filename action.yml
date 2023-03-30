@@ -21,6 +21,9 @@ inputs:
   work-dir:
     description: Location of all the docker files 
     required: false
+  fastapi-parameter:
+    description: Extra URL parameter for openapi
+    required: false  
 
 runs:
   using: "composite"
@@ -39,6 +42,7 @@ runs:
         APP_NAME: ${{ inputs.app-name }}
         CLEAN_BRANCH_NAME: ${{ inputs.clean-branch-name }}
         WORK_DIR: ${{ inputs.work-dir }}
+        FAST_PARA: ${{ inputs.fastapi-parameter }}
       run: |
         if [[ ${{ inputs.validatecodeonce }} != 'None' ]]; then
             ${{ github.action_path }}/scripts/CodeTestsOnce.sh 
