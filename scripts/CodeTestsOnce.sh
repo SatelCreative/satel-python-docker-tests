@@ -5,7 +5,7 @@ then
     echo "WORK_DIR ${WORK_DIR}"
     cd $WORK_DIR
 fi  
-
+echo ${CLEAN_BRANCH_NAME}
 echo "App health check"  # Check to see if the app container is running or not
 sleep 5
 docker-compose exec -T webapp python -c "import requests; requests.get('http://localhost:8000/health')" || exit 1
