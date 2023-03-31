@@ -5,6 +5,7 @@ then
     echo "WORK_DIR ${WORK_DIR}"
     cd $WORK_DIR
 fi  
+echo $POSTGRES_MULTIPLE_DATABASES
 
 echo "App health check"  # Check to see if the app container is running or not
 sleep 5
