@@ -11,7 +11,8 @@ then
 fi  
 
 ls
-pwd
+cd server/database
+ls
 
 # echo "Dev image check" 
 # IMG_STR=`cat docker-compose.override.yml | grep 'devenv'| cut -d ":" -f 2-3`
