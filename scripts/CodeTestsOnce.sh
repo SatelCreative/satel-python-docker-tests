@@ -6,9 +6,10 @@ then
     cd $WORK_DIR
 fi  
 echo $POSTGRES_MULTIPLE_DATABASES
-
+docker ps
 echo "App health check"  # Check to see if the app container is running or not
-sleep 5
+sleep 10
+docker ps
 docker-compose exec -T webapp python -c "import requests; requests.get('http://localhost:8000/health')" || exit 1
 
 echo "Openapi link" # copy openapi files to samba mount 
