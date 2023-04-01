@@ -37,32 +37,32 @@ runs:
       run: ${{ github.action_path }}/scripts/DockerUp.sh 
       shell: bash  
 
-#     - name: Run single server tests
-#       env: 
-#         APP_NAME: ${{ inputs.app-name }}
-#         CLEAN_BRANCH_NAME: ${{ inputs.clean-branch-name }}
-#         WORK_DIR: ${{ inputs.work-dir }}
-#         FAST_PARA: ${{ inputs.fastapi-parameter }}
-#       run: |
-#         if [[ ${{ inputs.validatecodeonce }} != 'None' ]]; then
-#             ${{ github.action_path }}/scripts/CodeTestsOnce.sh 
-#         fi  
-#       shell: bash  
+    - name: Run single server tests
+      env: 
+        APP_NAME: ${{ inputs.app-name }}
+        CLEAN_BRANCH_NAME: ${{ inputs.clean-branch-name }}
+        WORK_DIR: ${{ inputs.work-dir }}
+        FAST_PARA: ${{ inputs.fastapi-parameter }}
+      run: |
+        if [[ ${{ inputs.validatecodeonce }} != 'None' ]]; then
+            ${{ github.action_path }}/scripts/CodeTestsOnce.sh 
+        fi  
+      shell: bash  
 
-#     - name: Run multiple server tests
-#       env: 
-#         WORK_DIR: ${{ inputs.work-dir }}
-#       run: |
-#         if [[ ${{ inputs.multiple-server }} != 'None' ]]; then
-#             ${{ github.action_path }}/scripts/CodeTestsMultiple.sh
-#         fi  
-#       shell: bash  
+    - name: Run multiple server tests
+      env: 
+        WORK_DIR: ${{ inputs.work-dir }}
+      run: |
+        if [[ ${{ inputs.multiple-server }} != 'None' ]]; then
+            ${{ github.action_path }}/scripts/CodeTestsMultiple.sh
+        fi  
+      shell: bash  
 
-#     - name: Docker Down
-#       env:
-#         APP_NAME: ${{ inputs.app-name }}
-#         REGISTRY: ${{ inputs.registry }}
-#         CLEAN_BRANCH_NAME: ${{ inputs.clean-branch-name }}
-#         WORK_DIR: ${{ inputs.work-dir }}
-#       run: ${{ github.action_path }}/scripts/DockerDown.sh 
-#       shell: bash  
+    - name: Docker Down
+      env:
+        APP_NAME: ${{ inputs.app-name }}
+        REGISTRY: ${{ inputs.registry }}
+        CLEAN_BRANCH_NAME: ${{ inputs.clean-branch-name }}
+        WORK_DIR: ${{ inputs.work-dir }}
+      run: ${{ github.action_path }}/scripts/DockerDown.sh 
+      shell: bash  
