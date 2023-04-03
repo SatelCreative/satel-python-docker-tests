@@ -3,7 +3,7 @@ This centralized GitHub action runs tests on local docker services
 
 ## Usage 
 ```yml
-name: "Run tests"
+name: Run tests
 on:
   workflow_call:
     inputs:
@@ -29,7 +29,7 @@ on:
     runs-on: <HOST-NAME>
     steps:
      - name: Local docker environment
-        uses: SatelCreative/satel-local-docker-env@v1
+        uses: SatelCreative/satel-local-docker-env@1.0.0
         with:
           # APP-NAME can be st-pim or sb-pim for example
           app-name: <APP-NAME> 
