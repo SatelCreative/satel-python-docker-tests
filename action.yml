@@ -21,10 +21,6 @@ inputs:
   work-dir:
     description: Location of all the docker files 
     required: false
-  port:
-    description: Port that webapp is running openapi
-    required: false  
-    default: "8000"
   fastapi-parameter:
     description: Extra URL parameter for openapi
     required: false  
@@ -46,7 +42,6 @@ runs:
         APP_NAME: ${{ inputs.app-name }}
         CLEAN_BRANCH_NAME: ${{ inputs.clean-branch-name }}
         WORK_DIR: ${{ inputs.work-dir }}
-        PORT: ${{ inputs.port }}
         FAST_PARA: ${{ inputs.fastapi-parameter }}
       run: |
         if [[ ${{ inputs.validatecodeonce }} != 'None' ]]; then
