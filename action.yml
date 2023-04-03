@@ -51,7 +51,10 @@ runs:
 
     - name: Run multiple server tests
       env: 
+        APP_NAME: ${{ inputs.app-name }}
+        CLEAN_BRANCH_NAME: ${{ inputs.clean-branch-name }}
         WORK_DIR: ${{ inputs.work-dir }}
+        FAST_PARA: ${{ inputs.fastapi-parameter }}
       run: |
         if [[ ${{ inputs.multiple-server }} != 'None' ]]; then
             ${{ github.action_path }}/scripts/CodeTestsMultiple.sh

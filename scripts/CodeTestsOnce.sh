@@ -12,7 +12,6 @@ docker-compose exec -T webapp python -c "import requests; requests.get('http://l
 
 echo "Openapi link" # copy openapi files to samba mount 
 docker-compose exec -T webapp python -c "import requests; f=open('${CLEAN_BRANCH_NAME}_openapi.json','w',encoding = 'utf-8'); f.write(requests.get('http://localhost:8000${FAST_PARA}/openapi.json').text);f.close()"
-cat docker-compose exec -T webapp python /python/app/${CLEAN_BRANCH_NAME}_openapi.json
 [ -d "/mnt/samba/${APP_NAME}" ] || mkdir -p "/mnt/samba/${APP_NAME}"
 docker cp "$(docker-compose ps -q webapp)":"/python/app/${CLEAN_BRANCH_NAME}_openapi.json" "/mnt/samba/${APP_NAME}/${CLEAN_BRANCH_NAME}_openapi.json"
 
