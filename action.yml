@@ -62,6 +62,7 @@ runs:
       shell: bash  
 
     - name: Docker Down
+      if: ${{ always() }}
       env:
         APP_NAME: ${{ inputs.app-name }}
         REGISTRY: ${{ inputs.registry }}
