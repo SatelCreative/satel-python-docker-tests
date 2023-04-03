@@ -9,7 +9,6 @@ on:
 
   jobs:  
     code-validation:
-    needs: [set-variables] 
     # HOST-NAME is self-hosted or the name of server where the action runner is hosted, cosmicray for example
     runs-on: <HOST-NAME>
     steps:
