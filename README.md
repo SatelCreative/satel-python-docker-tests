@@ -39,7 +39,6 @@ on:
           multiple-server: <BOOLEAN>  
           # validatecodeonce & multiple-server are optional, for most webapps, if there is just one server pass validatecodeonce as true and skip multiple-server      
           fastapi-parameter: '/pim'
-
           work-dir: <WORK-DIR>
           # WORK-DIR, where all the docker related files are located, optional field, if it's not root
 ```
