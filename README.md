@@ -38,7 +38,7 @@ on:
           # validatecodeonce & multiple-server are optional, for most webapps, if there is just one server pass validatecodeonce as    true and skip multiple-server  
           validatecodeonce: <BOOLEAN>
           multiple-server: <BOOLEAN>   
-          port   
+          port: <PORT>   # Default is 8000, only change it if the webapp port in not 8000  
           fastapi-parameter: '/pim'
           # WORK-DIR, where all the docker related files are located, optional field, if it's not root
           work-dir: <WORK-DIR>
