@@ -1,4 +1,4 @@
-# Satel Local Docker environment
+# Satel Local Docker Environment
 This centralized GitHub action runs tests on local docker services
 
 ## Usage 
