@@ -4,23 +4,8 @@ This centralized GitHub action runs tests on local docker services
 ## Usage 
 ```yml
 name: Run tests
-on:
-  workflow_call:
-    inputs:
-      app-name:
-        required: true
-        type: string
-      docker-tag-name:
-        required: true
-        type: string
-      registry:
-        required: true
-        type: string
-    secrets:
-      DOCKER_REGISTRY_USER:
-        required: true
-      DOCKER_REGISTRY_PASS:
-        required: true 
+on: 
+ <conditions-you-want-this-workflow-to-run-on>
 
   jobs:  
     code-validation:
@@ -33,13 +18,13 @@ on:
         with:
           # APP-NAME can be st-pim or sb-pim for example
           app-name: <APP-NAME> 
-          registry: ${{ inputs.registry }}
-          clean-branch-name: ${{ inputs.docker-tag-name}}
+          registry: <REGISTRY-NAME>
+          clean-branch-name: <CLEAN-BRANCH-NAME>
           # validatecodeonce & multiple-server are optional, for most webapps, if there is just one server pass validatecodeonce as    true and skip multiple-server  
           validatecodeonce: <BOOLEAN>
           multiple-server: <BOOLEAN>    
-          fastapi-parameter: '/pim'
-          # WORK-DIR, where all the docker related files are located, optional field, if it's not root
+          fastapi-parameter: </PARAMETER>
+          # WORK-DIR, where all the docker related files are located, optional field, default is root
           work-dir: <WORK-DIR>
           
 ```
