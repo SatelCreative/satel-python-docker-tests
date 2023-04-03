@@ -21,7 +21,8 @@ echo "Code tests"
 ## Catch the exit codes so we don't exit the whole script before we are done.
 ## Typing, linting, formatting check & unit and integration testing
 docker-compose ps
-docker-compose exec -T pim_api flake8; STATUS1=$?
+#docker-compose exec -T pim_api flake8; STATUS1=$?
+docker-compose exec -T pim_api validatecodeonce; STATUS1=$?
 
 TOTAL=$((STATUS1))
 exit $TOTAL
