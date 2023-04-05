@@ -1,5 +1,5 @@
-# Satel Local Docker Environment
-This centralized GitHub action runs tests on local docker services
+# Satel Python Docker Tests
+This centralized GitHub action runs tests on python app using docker services
 
 ## Usage 
 ```yml
