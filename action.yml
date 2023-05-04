@@ -24,6 +24,10 @@ inputs:
   fastapi-parameter:
     description: Extra URL parameter for openapi
     required: false  
+  container-name: 
+    description: Name of the docker container for webapp
+    required: false
+    default: webapp
 
 runs:
   using: "composite"
@@ -43,6 +47,7 @@ runs:
         CLEAN_BRANCH_NAME: ${{ inputs.clean-branch-name }}
         WORK_DIR: ${{ inputs.work-dir }}
         FAST_PARA: ${{ inputs.fastapi-parameter }}
+        CONTAINER_NAME: ${{ inputs.container-name }}
       run: |
         if [[ ${{ inputs.validatecodeonce }} != 'None' ]]; then
             ${{ github.action_path }}/scripts/CodeTestsOnce.sh 
@@ -55,6 +60,7 @@ runs:
         CLEAN_BRANCH_NAME: ${{ inputs.clean-branch-name }}
         WORK_DIR: ${{ inputs.work-dir }}
         FAST_PARA: ${{ inputs.fastapi-parameter }}
+        CONTAINER_NAME: ${{ inputs.container-name }}
       run: |
         if [[ ${{ inputs.multiple-server }} != 'None' ]]; then
             ${{ github.action_path }}/scripts/CodeTestsMultiple.sh

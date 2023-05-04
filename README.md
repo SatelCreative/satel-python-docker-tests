@@ -13,7 +13,7 @@ on:
     runs-on: <HOST-NAME>
     steps:
      - name: Local docker environment
-        uses: SatelCreative/satel-local-docker-env@1.0.0
+        uses: SatelCreative/satel-local-python-tests@1.0.0
         with:
           # APP-NAME can be st-pim or sb-pim for example
           app-name: <APP-NAME> 
@@ -22,9 +22,11 @@ on:
           # validatecodeonce & multiple-server are optional, for most webapps, if there is just one server pass validatecodeonce as    true and skip multiple-server  
           validatecodeonce: <BOOLEAN>
           multiple-server: <BOOLEAN>    
-          fastapi-parameter: </PARAMETER>
           # WORK-DIR, where all the docker related files are located, optional field, default is root
           work-dir: <WORK-DIR>
+          fastapi-parameter: </PARAMETER>
+          container-name: <NAME_OF-WEBAPP-CONTAINER>
+          
           
 ```
    NOTE: If the webapp has multiple server, for example `sb-pim`, pass `multiple-server` as `true` and skip `validatecodeonce`
