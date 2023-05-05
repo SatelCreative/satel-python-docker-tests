@@ -1,4 +1,4 @@
-name: Local-docker-environment
+name: Validate code using docker
 description: Run docker services, test them and then remove them
 inputs:
   app-name:
@@ -9,15 +9,7 @@ inputs:
     required: true   
   clean-branch-name: 
     description: Branch name that was pushed to registry
-    required: true  
-  validatecodeonce:
-    description: Runs typing, linting, formatting check & unit and integration testing
-    required: false
-    default: None
-  multiple-server:
-    description: Runs typing, linting, formatting check & unit and integration testing for webapps with multiple server
-    required: false
-    default: None  
+    required: true   
   work-dir:
     description: Location of all the docker files 
     required: false
@@ -48,24 +40,8 @@ runs:
         WORK_DIR: ${{ inputs.work-dir }}
         FAST_PARA: ${{ inputs.fastapi-parameter }}
         CONTAINER_NAME: ${{ inputs.container-name }}
-      run: |
-        if [[ ${{ inputs.validatecodeonce }} != 'None' ]]; then
-            ${{ github.action_path }}/scripts/CodeTestsOnce.sh 
-        fi  
+      run: ${{ github.action_path }}/scripts/ValidateCode.sh  
       shell: bash  
-
-    # - name: Run multiple server tests
-    #   env: 
-    #     APP_NAME: ${{ inputs.app-name }}
-    #     CLEAN_BRANCH_NAME: ${{ inputs.clean-branch-name }}
-    #     WORK_DIR: ${{ inputs.work-dir }}
-    #     FAST_PARA: ${{ inputs.fastapi-parameter }}
-    #     CONTAINER_NAME: ${{ inputs.container-name }}
-    #   run: |
-    #     if [[ ${{ inputs.multiple-server }} != 'None' ]]; then
-    #         ${{ github.action_path }}/scripts/CodeTestsMultiple.sh
-    #     fi  
-    #   shell: bash  
 
     - name: Docker Down
       if: ${{ always() }}

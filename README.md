@@ -1,5 +1,5 @@
 # Satel Python Docker Tests
-This centralized GitHub action runs tests on python app using docker services
+This centralized GitHub action runs tests on a python app using docker services
 
 ## Usage 
 ```yml
@@ -12,16 +12,13 @@ on:
     # HOST-NAME is self-hosted or the name of server where the action runner is hosted, cosmicray for example
     runs-on: <HOST-NAME>
     steps:
-     - name: Local docker environment
+     - name: Validate code
         uses: SatelCreative/satel-local-python-tests@1.0.0
         with:
           # APP-NAME can be st-pim or sb-pim for example
           app-name: <APP-NAME> 
           registry: <REGISTRY-NAME>
-          clean-branch-name: <CLEAN-BRANCH-NAME>
-          # validatecodeonce & multiple-server are optional, for most webapps, if there is just one server pass validatecodeonce as    true and skip multiple-server  
-          validatecodeonce: <BOOLEAN>
-          multiple-server: <BOOLEAN>    
+          clean-branch-name: <CLEAN-BRANCH-NAME>  
           # WORK-DIR, where all the docker related files are located, optional field, default is root
           work-dir: <WORK-DIR>
           fastapi-parameter: </PARAMETER>
@@ -29,4 +26,3 @@ on:
           
           
 ```
-   NOTE: If the webapp has multiple server, for example `sb-pim`, pass `multiple-server` as `true` and skip `validatecodeonce`
