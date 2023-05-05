@@ -21,15 +21,19 @@ rm -f unittesting.xml coverage.xml typing.xml typing-server.xml typing-integrati
 echo "Code tests" 
 ## Catch the exit codes so we don't exit the whole script before we are done.
 ## Typing, linting, formatting check & unit and integration testing
-if [[ $CONTAINER_NAME == "webapp" ]]; then
+if [[ $CONTAINER_NAME != "webapp" ]]; then
+    echo "flake8 tests" #TODO: remove the if else block once the errors on sb-pim are fixed
+    docker-compose exec -T ${CONTAINER_NAME} flake8; STATUS1=$?    # For Sb-pim only
+    docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/typing-server.xml typing-server.xml
+    docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/typing-integrations.xml typing-integrations.xml
+    
+else
     docker-compose exec -T ${CONTAINER_NAME} validatecodeonce; STATUS1=$?
     docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/typing.xml typing.xml
-    docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/unittesting.xml unittesting.xml
-    docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/coverage.xml coverage.xml
-else
-   echo "flake8 tests" #TODO: remove the if else block once the errors on sb-pim are fixed
-   docker-compose exec -T ${CONTAINER_NAME} flake8; STATUS1=$?    # For Sb-pim only
 fi
+
+docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/unittesting.xml unittesting.xml
+docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/coverage.xml coverage.xml
 
 ## Return the status code
 TOTAL=$((STATUS1))
