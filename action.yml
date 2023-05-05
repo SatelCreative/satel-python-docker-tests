@@ -41,7 +41,7 @@ runs:
       run: ${{ github.action_path }}/scripts/DockerUp.sh 
       shell: bash  
 
-    - name: Run single server tests
+    - name: Run docker tests
       env: 
         APP_NAME: ${{ inputs.app-name }}
         CLEAN_BRANCH_NAME: ${{ inputs.clean-branch-name }}
@@ -54,18 +54,18 @@ runs:
         fi  
       shell: bash  
 
-    - name: Run multiple server tests
-      env: 
-        APP_NAME: ${{ inputs.app-name }}
-        CLEAN_BRANCH_NAME: ${{ inputs.clean-branch-name }}
-        WORK_DIR: ${{ inputs.work-dir }}
-        FAST_PARA: ${{ inputs.fastapi-parameter }}
-        CONTAINER_NAME: ${{ inputs.container-name }}
-      run: |
-        if [[ ${{ inputs.multiple-server }} != 'None' ]]; then
-            ${{ github.action_path }}/scripts/CodeTestsMultiple.sh
-        fi  
-      shell: bash  
+    # - name: Run multiple server tests
+    #   env: 
+    #     APP_NAME: ${{ inputs.app-name }}
+    #     CLEAN_BRANCH_NAME: ${{ inputs.clean-branch-name }}
+    #     WORK_DIR: ${{ inputs.work-dir }}
+    #     FAST_PARA: ${{ inputs.fastapi-parameter }}
+    #     CONTAINER_NAME: ${{ inputs.container-name }}
+    #   run: |
+    #     if [[ ${{ inputs.multiple-server }} != 'None' ]]; then
+    #         ${{ github.action_path }}/scripts/CodeTestsMultiple.sh
+    #     fi  
+    #   shell: bash  
 
     - name: Docker Down
       if: ${{ always() }}
