@@ -24,16 +24,13 @@ echo "Code tests"
 if [[ $CONTAINER_NAME != "webapp" ]]; then
     echo "flake8 tests" #TODO: remove the if else block once the errors on sb-pim are fixed
     docker-compose exec -T ${CONTAINER_NAME} flake8; STATUS1=$?    # For Sb-pim only
-    docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/typing-server.xml typing-server.xml
-    docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/typing-integrations.xml typing-integrations.xml
     
 else
     docker-compose exec -T ${CONTAINER_NAME} validatecodeonce; STATUS1=$?
     docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/typing.xml typing.xml
+    docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/unittesting.xml unittesting.xml
+    docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/coverage.xml coverage.xml
 fi
-
-docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/unittesting.xml unittesting.xml
-docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/coverage.xml coverage.xml
 
 ## Return the status code
 TOTAL=$((STATUS1))
