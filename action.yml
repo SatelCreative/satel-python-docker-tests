@@ -1,0 +1,54 @@
+name: Validate code using docker
+description: Run docker services, test them and then remove them
+inputs:
+  app-name:
+    description: Name of the Webapp
+    required: false
+  registry: 
+    description: Provides current name of the registry
+    required: true   
+  clean-branch-name: 
+    description: Branch name that was pushed to registry
+    required: true   
+  work-dir:
+    description: Location of all the docker files 
+    required: false
+  fastapi-parameter:
+    description: Extra URL parameter for openapi
+    required: false  
+  container-name: 
+    description: Name of the docker container for webapp
+    required: false
+    default: webapp
+
+runs:
+  using: "composite"
+  steps:
+    - name: Docker Up
+      env:
+        APP_NAME: ${{ inputs.app-name }}
+        REGISTRY: ${{ inputs.registry }}
+        CLEAN_BRANCH_NAME: ${{ inputs.clean-branch-name }}
+        WORK_DIR: ${{ inputs.work-dir }}
+      run: ${{ github.action_path }}/scripts/DockerUp.sh 
+      shell: bash  
+
+    - name: Run docker tests
+      env: 
+        APP_NAME: ${{ inputs.app-name }}
+        CLEAN_BRANCH_NAME: ${{ inputs.clean-branch-name }}
+        WORK_DIR: ${{ inputs.work-dir }}
+        FAST_PARA: ${{ inputs.fastapi-parameter }}
+        CONTAINER_NAME: ${{ inputs.container-name }}
+      run: ${{ github.action_path }}/scripts/ValidateCode.sh  
+      shell: bash  
+
+    - name: Docker Down
+      if: ${{ always() }}
+      env:
+        APP_NAME: ${{ inputs.app-name }}
+        REGISTRY: ${{ inputs.registry }}
+        CLEAN_BRANCH_NAME: ${{ inputs.clean-branch-name }}
+        WORK_DIR: ${{ inputs.work-dir }}
+      run: ${{ github.action_path }}/scripts/DockerDown.sh 
+      shell: bash  
