@@ -21,6 +21,11 @@ inputs:
     required: false
     default: webapp
 
+outputs:
+  coverage-reports: # id of output
+    description: "Coverage link"
+    value: ${{ steps.tests.outputs.coverage_reports }}
+
 runs:
   using: "composite"
   steps:
@@ -34,6 +39,7 @@ runs:
       shell: bash  
 
     - name: Run docker tests
+      id: tests
       env: 
         APP_NAME: ${{ inputs.app-name }}
         CLEAN_BRANCH_NAME: ${{ inputs.clean-branch-name }}

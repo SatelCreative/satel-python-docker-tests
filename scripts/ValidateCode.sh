@@ -32,6 +32,9 @@ else
     docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/coverage.xml coverage.xml
 fi
 
+# These outputs are used in other steps/jobs via action.yml
+echo "::set-output name=coverage_reports::coverage.xml"
+
 ## Return the status code
 TOTAL=$((STATUS1))
 exit $TOTAL
