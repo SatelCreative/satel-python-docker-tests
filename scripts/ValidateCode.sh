@@ -33,7 +33,7 @@ else
 fi
 
 # These outputs are used in other steps/jobs via action.yml
-coverage=`cat coverage.xml`
+coverage="test" #`cat coverage.xml`
 echo "PWD=${PWD}"
 cp coverage.xml ${PWD}
 echo "::set-output name=coverage_reports::$coverage"
