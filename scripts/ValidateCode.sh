@@ -33,7 +33,7 @@ else
     docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/coverage.xml coverage.xml
 fi
 
-cp coverage.xml /mnt/samba/${REPO_NAME}/${APP_NAME}/coverage.xml
+#cp coverage.xml /mnt/samba/${REPO_NAME}/${APP_NAME}/coverage.xml
 ## Return the status code
 TOTAL=$((STATUS1+STATUS2))
 exit $TOTAL
