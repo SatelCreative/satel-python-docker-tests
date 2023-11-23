@@ -13,7 +13,7 @@ docker-compose exec -T ${CONTAINER_NAME} python -c "import requests; requests.ge
 echo "Openapi link" # copy openapi files to samba mount 
 docker-compose exec -T ${CONTAINER_NAME} python -c "import requests; f=open('${CLEAN_BRANCH_NAME}_openapi.json','w',encoding = 'utf-8'); f.write(requests.get('http://localhost:8000${FAST_PARA}/openapi.json').text);f.close()"
 [ -d "/mnt/samba/${APP_NAME}" ] || mkdir -p "/mnt/samba/${APP_NAME}"
-docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":"/python/app/${CLEAN_BRANCH_NAME}_openapi.json" "/mnt/samba/${APP_NAME}/${CLEAN_BRANCH_NAME}_openapi.json"
+docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":"/python/app/${CLEAN_BRANCH_NAME}_openapi.json" "/mnt/samba/${REPO_NAME}/${APP_NAME}/${CLEAN_BRANCH_NAME}_openapi.json"
 
 echo "Clean up old reports" 
 rm -f unittesting.xml coverage.xml typing.xml typing-server.xml typing-integrations.xml
@@ -33,11 +33,8 @@ else
 fi
 
 # These outputs are used in other steps/jobs via action.yml
-coverage="test" #`cat coverage.xml`
-echo "PWD=${PWD}"
-cp coverage.xml ${PWD}
-echo "::set-output name=coverage_reports::$coverage"
 
+cp coverage.xml /mnt/samba/${REPO_NAME}/${APP_NAME}/coverage.xml
 ## Return the status code
 TOTAL=$((STATUS1))
 exit $TOTAL

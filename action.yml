@@ -7,6 +7,9 @@ inputs:
   registry: 
     description: Provides current name of the registry
     required: true   
+  repo-name:
+    description: Name of the repository
+    required: true  
   clean-branch-name: 
     description: Branch name that was pushed to registry
     required: true   
@@ -33,6 +36,7 @@ runs:
       env:
         APP_NAME: ${{ inputs.app-name }}
         REGISTRY: ${{ inputs.registry }}
+        REPO_NAME: ${{ inputs.repo-name }}
         CLEAN_BRANCH_NAME: ${{ inputs.clean-branch-name }}
         WORK_DIR: ${{ inputs.work-dir }}
       run: ${{ github.action_path }}/scripts/DockerUp.sh 
@@ -42,6 +46,7 @@ runs:
       id: tests
       env: 
         APP_NAME: ${{ inputs.app-name }}
+        REPO_NAME: ${{ inputs.repo-name }}
         CLEAN_BRANCH_NAME: ${{ inputs.clean-branch-name }}
         WORK_DIR: ${{ inputs.work-dir }}
         FAST_PARA: ${{ inputs.fastapi-parameter }}
@@ -54,6 +59,7 @@ runs:
       env:
         APP_NAME: ${{ inputs.app-name }}
         REGISTRY: ${{ inputs.registry }}
+        REPO_NAME: ${{ inputs.repo-name }}
         CLEAN_BRANCH_NAME: ${{ inputs.clean-branch-name }}
         WORK_DIR: ${{ inputs.work-dir }}
       run: ${{ github.action_path }}/scripts/DockerDown.sh 
