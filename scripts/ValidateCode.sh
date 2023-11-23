@@ -34,7 +34,8 @@ fi
 
 # These outputs are used in other steps/jobs via action.yml
 coverage=`cat coverage.xml`
-echo $coverage
+echo "PWD=${PWD}"
+cp coverage.xml ${PWD}
 echo "::set-output name=coverage_reports::$coverage"
 
 ## Return the status code
