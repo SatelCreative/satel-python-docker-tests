@@ -27,7 +27,7 @@ if [[ $CONTAINER_NAME != "webapp" ]]; then
     
 else
     docker-compose exec -T ${CONTAINER_NAME} validatecodeonce; STATUS1=$?
-    docker-compose exec -T ${CONTAINER_NAME} pytest --cov --cov-report=html:/mnt/samba/${REPO_NAME}/${CLEAN_BRANCH_NAME}/${APP_NAME}/coverage; STATUS2=$?
+    docker-compose exec -T ${CONTAINER_NAME} pytest --cov --cov-report=html:coverage.html; STATUS2=$?
     docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/typing.xml typing.xml
     docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/unittesting.xml unittesting.xml
     docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/coverage.xml coverage.xml
