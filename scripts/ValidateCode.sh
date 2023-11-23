@@ -33,7 +33,7 @@ else
 fi
 
 # These outputs are used in other steps/jobs via action.yml
-coverage=`cat coverage.xml.xml`
+coverage=`cat coverage.xml`
 echo $coverage
 echo "::set-output name=coverage_reports::$coverage"
 
