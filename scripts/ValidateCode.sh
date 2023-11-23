@@ -31,7 +31,7 @@ else
     docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/unittesting.xml unittesting.xml
     docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/coverage.xml coverage.xml
 fi
-
+cat coverage.xml
 # These outputs are used in other steps/jobs via action.yml
 echo "::set-output name=coverage_reports::coverage.xml"
 
