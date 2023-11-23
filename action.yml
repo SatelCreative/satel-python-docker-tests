@@ -22,7 +22,7 @@ inputs:
     default: webapp
 
 outputs:
-  coverage-reports: # id of output
+  coverage_reports: # id of output
     description: "Coverage link"
     value: ${{ steps.tests.outputs.coverage_reports }}
 
