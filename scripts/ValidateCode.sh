@@ -12,7 +12,7 @@ docker-compose exec -T ${CONTAINER_NAME} python -c "import requests; requests.ge
 
 echo "Openapi link" # copy openapi files to samba mount 
 docker-compose exec -T ${CONTAINER_NAME} python -c "import requests; f=open('${CLEAN_BRANCH_NAME}_openapi.json','w',encoding = 'utf-8'); f.write(requests.get('http://localhost:8000${FAST_PARA}/openapi.json').text);f.close()"
-[ -d "/mnt/samba/${APP_NAME}" ] || mkdir -p "/mnt/samba/${APP_NAME}"
+[ -d "/mnt/samba/${REPO_NAME}/${APP_NAME}" ] || mkdir -p "/mnt/samba/${REPO_NAME}/${APP_NAME}"
 docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":"/python/app/${CLEAN_BRANCH_NAME}_openapi.json" "/mnt/samba/${REPO_NAME}/${APP_NAME}/${CLEAN_BRANCH_NAME}_openapi.json"
 
 echo "Clean up old reports" 
