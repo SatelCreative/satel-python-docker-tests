@@ -15,6 +15,11 @@ docker-compose exec -T ${CONTAINER_NAME} python -c "import requests; f=open('${C
 [ -d "/mnt/samba/${APP_NAME}" ] || mkdir -p "/mnt/samba/${APP_NAME}"
 docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":"/python/app/${CLEAN_BRANCH_NAME}_openapi.json" "/mnt/samba/${APP_NAME}/${CLEAN_BRANCH_NAME}_openapi.json"
 
+if [[ -z $DEV_ARG ]] 
+then
+    exit 0
+fi  
+
 echo "Clean up old reports" 
 rm -f unittesting.xml coverage.xml typing.xml typing-server.xml typing-integrations.xml
 
@@ -24,7 +29,6 @@ echo "Code tests"
 if [[ $CONTAINER_NAME != "webapp" ]]; then
     echo "flake8 tests" #TODO: remove the if else block once the errors on sb-pim are fixed
     docker-compose exec -T ${CONTAINER_NAME} flake8; STATUS1=$?    # For Sb-pim only
-    
 else
     docker-compose exec -T ${CONTAINER_NAME} validatecodeonce; STATUS1=$?
     docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/typing.xml typing.xml

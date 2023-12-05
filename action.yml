@@ -20,7 +20,10 @@ inputs:
     description: Name of the docker container for webapp
     required: false
     default: webapp
-
+  dev-arg:
+    description: Parameter to detect dev dependencies 
+    required: false
+    
 runs:
   using: "composite"
   steps:
@@ -40,6 +43,7 @@ runs:
         WORK_DIR: ${{ inputs.work-dir }}
         FAST_PARA: ${{ inputs.fastapi-parameter }}
         CONTAINER_NAME: ${{ inputs.container-name }}
+        DEV_ARG: ${{ inputs.dev-arg }}
       run: ${{ github.action_path }}/scripts/ValidateCode.sh  
       shell: bash  
 
