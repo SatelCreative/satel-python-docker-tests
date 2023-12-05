@@ -28,7 +28,6 @@ else
     if [[ $CONTAINER_NAME != "webapp" ]]; then
         echo "flake8 tests" #TODO: remove the if else block once the errors on sb-pim are fixed
         docker-compose exec -T ${CONTAINER_NAME} flake8; STATUS1=$?    # For Sb-pim only
-        
     else
         docker-compose exec -T ${CONTAINER_NAME} validatecodeonce; STATUS1=$?
         docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/typing.xml typing.xml
