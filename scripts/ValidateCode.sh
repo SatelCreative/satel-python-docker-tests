@@ -38,4 +38,4 @@ fi
 
 ## Return the status code
 TOTAL=$((STATUS1))
-exit $TOTAL  
+exit $TOTAL
