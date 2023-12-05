@@ -15,8 +15,10 @@ docker-compose exec -T ${CONTAINER_NAME} python -c "import requests; f=open('${C
 [ -d "/mnt/samba/${APP_NAME}" ] || mkdir -p "/mnt/samba/${APP_NAME}"
 docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":"/python/app/${CLEAN_BRANCH_NAME}_openapi.json" "/mnt/samba/${APP_NAME}/${CLEAN_BRANCH_NAME}_openapi.json"
 
-if [[ -n $DEV_ARG ]] 
+if [[ -z $DEV_ARG ]] 
 then
+    exit 0
+else    
     echo "Clean up old reports" 
     rm -f unittesting.xml coverage.xml typing.xml typing-server.xml typing-integrations.xml
 
