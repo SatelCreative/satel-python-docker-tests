@@ -18,24 +18,24 @@ docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":"/python/app/${CLEAN_BRANC
 if [[ -z $DEV_ARG ]] 
 then
     exit 0
-else    
-    echo "Clean up old reports" 
-    rm -f unittesting.xml coverage.xml typing.xml typing-server.xml typing-integrations.xml
+fi  
 
-    echo "Code tests" 
-    ## Catch the exit codes so we don't exit the whole script before we are done.
-    ## Typing, linting, formatting check & unit and integration testing
-    if [[ $CONTAINER_NAME != "webapp" ]]; then
-        echo "flake8 tests" #TODO: remove the if else block once the errors on sb-pim are fixed
-        docker-compose exec -T ${CONTAINER_NAME} flake8; STATUS1=$?    # For Sb-pim only
-    else
-        docker-compose exec -T ${CONTAINER_NAME} validatecodeonce; STATUS1=$?
-        docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/typing.xml typing.xml
-        docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/unittesting.xml unittesting.xml
-        docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/coverage.xml coverage.xml
-    fi
+echo "Clean up old reports" 
+rm -f unittesting.xml coverage.xml typing.xml typing-server.xml typing-integrations.xml
 
-    ## Return the status code
-    TOTAL=$((STATUS1))
-    exit $TOTAL
-fi    
+echo "Code tests" 
+## Catch the exit codes so we don't exit the whole script before we are done.
+## Typing, linting, formatting check & unit and integration testing
+if [[ $CONTAINER_NAME != "webapp" ]]; then
+    echo "flake8 tests" #TODO: remove the if else block once the errors on sb-pim are fixed
+    docker-compose exec -T ${CONTAINER_NAME} flake8; STATUS1=$?    # For Sb-pim only
+else
+    docker-compose exec -T ${CONTAINER_NAME} validatecodeonce; STATUS1=$?
+    docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/typing.xml typing.xml
+    docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/unittesting.xml unittesting.xml
+    docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/coverage.xml coverage.xml
+fi
+
+## Return the status code
+TOTAL=$((STATUS1))
+exit $TOTAL  
