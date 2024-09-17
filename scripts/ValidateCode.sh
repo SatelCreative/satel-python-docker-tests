@@ -8,12 +8,12 @@ fi
 
 echo "App health check"  # Check to see if the app container is running or not
 sleep 5
-docker-compose exec -T ${CONTAINER_NAME} python -c "import requests; requests.get('http://localhost:8000/health')" || exit 1
+docker compose exec -T ${CONTAINER_NAME} python -c "import requests; requests.get('http://localhost:8000/health')" || exit 1
 
 echo "Openapi link" # copy openapi files to samba mount 
-docker-compose exec -T ${CONTAINER_NAME} python -c "import requests; f=open('${CLEAN_BRANCH_NAME}_openapi.json','w',encoding = 'utf-8'); f.write(requests.get('http://localhost:8000${FAST_PARA}/openapi.json').text);f.close()"
+docker compose exec -T ${CONTAINER_NAME} python -c "import requests; f=open('${CLEAN_BRANCH_NAME}_openapi.json','w',encoding = 'utf-8'); f.write(requests.get('http://localhost:8000${FAST_PARA}/openapi.json').text);f.close()"
 [ -d "/mnt/samba/${APP_NAME}" ] || mkdir -p "/mnt/samba/${APP_NAME}"
-docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":"/python/app/${CLEAN_BRANCH_NAME}_openapi.json" "/mnt/samba/${APP_NAME}/${CLEAN_BRANCH_NAME}_openapi.json"
+docker cp "$(docker compose ps -q ${CONTAINER_NAME})":"/python/app/${CLEAN_BRANCH_NAME}_openapi.json" "/mnt/samba/${APP_NAME}/${CLEAN_BRANCH_NAME}_openapi.json"
 
 if [[ -z $DEV_ARG ]] 
 then
@@ -28,12 +28,12 @@ echo "Code tests"
 ## Typing, linting, formatting check & unit and integration testing
 if [[ $CONTAINER_NAME != "webapp" ]]; then
     echo "flake8 tests" #TODO: remove the if else block once the errors on sb-pim are fixed
-    docker-compose exec -T ${CONTAINER_NAME} flake8; STATUS1=$?    # For Sb-pim only
+    docker compose exec -T ${CONTAINER_NAME} flake8; STATUS1=$?    # For Sb-pim only
 else
-    docker-compose exec -T ${CONTAINER_NAME} validatecodeonce; STATUS1=$?
-    docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/typing.xml typing.xml
-    docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/unittesting.xml unittesting.xml
-    docker cp "$(docker-compose ps -q ${CONTAINER_NAME})":/python/reports/coverage.xml coverage.xml
+    docker compose exec -T ${CONTAINER_NAME} validatecodeonce; STATUS1=$?
+    docker cp "$(docker compose ps -q ${CONTAINER_NAME})":/python/reports/typing.xml typing.xml
+    docker cp "$(docker compose ps -q ${CONTAINER_NAME})":/python/reports/unittesting.xml unittesting.xml
+    docker cp "$(docker compose ps -q ${CONTAINER_NAME})":/python/reports/coverage.xml coverage.xml
 fi
 
 ## Return the status code
