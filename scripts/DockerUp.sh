@@ -18,4 +18,4 @@ do
 done
 
 echo "Docker up"
-docker-compose -f docker-compose.yml -f docker-compose.pipeline.yml up -d
+docker compose -f docker-compose.yml -f docker-compose.pipeline.yml up -d
